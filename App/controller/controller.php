@@ -16,10 +16,12 @@ function controller($accion)
             $listadoUnidades = $listadoUnidades->fetchAll(PDO::FETCH_OBJ);
             echo json_encode($listadoUnidades);
             break;
-        case 'LISTAR_PROCEDIMIENTOS':
-            $nvl = $_POST['nvlIpress'];
-            $procedimientos = $objProcedimiento->FiltrarTarifario($nvl);
-            echo (armarTabla($procedimientos));
+        case 'CARGAR_TARIFARIO':
+            $nvl = $_POST['nivelIpress'];
+            $tarifario = $objProcedimiento->CargarTarifario($nvl);
+            $tarifario = $tarifario->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($tarifario);
+            //echo (armarTabla($procedimientos));
             break;
         case 'FILTRAR_PROCEDIMIENTOS':
             $nvl = $_POST['nvlIpress'];

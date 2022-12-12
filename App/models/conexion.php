@@ -6,8 +6,8 @@ try {
     $pass = 'root';
     $db = 'dbcpms';
     //$usuario = 'odindeveloper_josue';
-    //$pass = '8K=*%i-s[#,T';
-    //$db = 'odindeveloper_cpmsdb';
+    //$pass = 'b(=-.[52yyfy';
+    //$db = 'odindeveloper_dbcpms';
     $cadena = "$manejador:host=$servidor;dbname=$db";
     $cnx = new PDO($cadena, $usuario, $pass);
     date_default_timezone_set('America/Lima');

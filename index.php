@@ -36,9 +36,7 @@
         <div class="section">
             <div class="bg-dark"></div>
             <div class="cont-search">
-                <form action="">
-                    <input type="text" name="procedimiento" id="procedimiento" placeholder="Buscar Procedimiento">
-                </form>
+                <input type="text" name="procedimiento" id="procedimiento" placeholder="Buscar Procedimiento">
                 <a type="button" id="btnExcel"><i class="fa-regular fa-file-excel"></i> Descargar Tarifario</a>
             </div>
             <div class="cont-table">
@@ -51,7 +49,7 @@
                             <th>Precio</th>
                         </tr>
                     </thead>
-                    <tbody id="tbcpt">
+                    <tbody id="tbCpms">
                         <!--AJAX-->
                     </tbody>
                 </table>

@@ -13,15 +13,20 @@ $objProcedimiento = new ClsProcedimiento();
 
 $nvl = $_GET['nvl'];
 
-$nro = $nvl == '3' ? 'III' : ($nvl == '2' ? 'II' : 'I');
-
-$descargas = $objProcedimiento->CantidadDescargas();
-$descargas = $descargas->fetch(PDO::FETCH_NAMED);
-$descargas = $descargas['cantidad'];
-$descargas++;
-$fecha = date('Y/m/d');
-
-$objProcedimiento->ActualizarDescargas($descargas, $fecha);
+$tarifario = $objProcedimiento->CargarTarifario($nvl);
+$tarifario = $tarifario->fetchAll(PDO::FETCH_OBJ);
+/* $id = 1;
+foreach ($tarifario as $procedimiento) {
+    echo $id;
+    echo ' - ';
+    echo $procedimiento->codigoCpms;
+    echo ' - ';
+    echo $procedimiento->descripcion;
+    echo ' - ';
+    echo $procedimiento->precio;
+    $id++;
+    echo '<br>';
+} */
 
 $estiloHeader = [
     'font' => [
@@ -71,7 +76,7 @@ $sheet->getColumnDimension('A')->setWidth(10);
 $spreadsheet->getActiveSheet()->getStyle('A')->applyFromArray($estiloCentro);
 $spreadsheet->getActiveSheet()->getStyle('B')->applyFromArray($estiloCentro);
 $spreadsheet->getActiveSheet()->getStyle('D')->applyFromArray($estiloCentro);
-$sheet->setCellValue('A1', 'TARIFARIO PARA IPRESS DE NIVEL ' . $nro);
+$sheet->setCellValue('A1', 'TARIFARIO PARA IPRESS DE NIVEL ' . $nvl);
 $spreadsheet->getActiveSheet()->getRowDimension('2')->setRowHeight(20);
 $sheet->setCellValue('A2', '#');
 $sheet->getColumnDimension('B')->setWidth(20);
@@ -83,13 +88,13 @@ $sheet->setCellValue('D2', 'PRECIO');
 
 $filaExcel = 3;
 
-$procedimientos = $objProcedimiento->FiltrarTarifario("nvl$nvl");
-$procedimientos = $procedimientos->fetchAll(PDO::FETCH_OBJ);
+$tarifario = $objProcedimiento->CargarTarifario($nvl);
+$tarifario = $tarifario->fetchAll(PDO::FETCH_OBJ);
 $id = 1;
-foreach ($procedimientos as $procedimiento) {
+foreach ($tarifario as $procedimiento) {
     $sheet->setCellValue('A' . $filaExcel, $id);
-    $sheet->setCellValue('B' . $filaExcel, $procedimiento->codigocpt);
-    $sheet->setCellValue('c' . $filaExcel, $procedimiento->descripcion);
+    $sheet->setCellValue('B' . $filaExcel, $procedimiento->codigoCpms);
+    $sheet->setCellValue('C' . $filaExcel, $procedimiento->descripcion);
     $sheet->setCellValue('D' . $filaExcel, $procedimiento->precio);
     $id++;
     $filaExcel++;
