@@ -1,10 +1,15 @@
 <?php
 try {
-    $manejador = 'pgsql';
+    /* $manejador = 'pgsql';
     $servidor = 'localhost';
     $usuario = 'postgres';
     $pass = 'root';
-    $db = 'dbcpms';
+    $db = 'dbcpms'; */
+    $manejador = 'mysql';
+    $servidor = 'localhost';
+    $usuario = 'root';
+    $pass = 'mysql';
+    $db = 'dbestdirsapol';
     //$usuario = 'odindeveloper_josue';
     //$pass = 'b(=-.[52yyfy';
     //$db = 'odindeveloper_dbcpms';

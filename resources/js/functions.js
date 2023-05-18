@@ -13,8 +13,8 @@ window.addEventListener("load", async () => {
   const datos = new FormData();
   datos.append("accion", "LISTAR_UNIDADES");
   const cargarUnidades = await postData(datos);
-  const unidadesList = cargarUnidades.map((unidad) => unidad.nombre);
-
+  const unidadesList = cargarUnidades.map((unidad) => unidad.nombreIpress);
+  console.log(cargarUnidades);
   CargarAutocompletado(unidadesList, cargarUnidades);
 });
 
@@ -32,7 +32,7 @@ function CargarAutocompletado(list, unidades) {
       let unidad = item.item.value;
       let position = list.indexOf(unidad);
       nivelIpress = unidades[position].nivel;
-      cargarTarifario(nivelIpress)
+      cargarTarifario(nivelIpress);
     },
   });
 }
@@ -41,24 +41,36 @@ async function cargarTarifario(nivel) {
   datos.append("accion", "CARGAR_TARIFARIO");
   datos.append("nivelIpress", nivel);
   tarifario = await postData(datos);
-  renderTabla(tarifario)
+  renderTabla(tarifario);
 }
 
-const crearFilasTabla = tarifario => tarifario.map((procedimiento, indice) => `<tr><td>${indice + 1}</td><td>${procedimiento.codigoCpms}</td><td>${procedimiento.descripcion}</td><td>S/.${procedimiento.precio}</td></tr>`).join('')
+const crearFilasTabla = (tarifario) =>
+  tarifario
+    .map(
+      (procedimiento, indice) =>
+        `<tr><td>${indice + 1}</td><td>${procedimiento.codigoCpms}</td><td>${
+          procedimiento.descripcion
+        }</td><td>S/.${procedimiento.precio}</td></tr>`
+    )
+    .join("");
 
 function renderTabla(tarifario) {
-  const filasString = crearFilasTabla(tarifario)
-  tbTarifario.innerHTML = filasString
+  const filasString = crearFilasTabla(tarifario);
+  tbTarifario.innerHTML = filasString;
   $(".bg-dark").css("display", "none");
   $("#btnExcel").prop(
     "href",
     `resources/libraries/Excel/tarifario.php?nvl=${nivelIpress}`
   );
 }
-inputProcedimiento.addEventListener('keyup', e => {
-  const nuevaTabla = tarifario.filter(procedimiento => `${procedimiento.descripcion.toLowerCase()} ${procedimiento.codigoCpms.toLowerCase()}`.includes(inputProcedimiento.value.toLowerCase()));
-  renderTabla(nuevaTabla)
-})
+inputProcedimiento.addEventListener("keyup", (e) => {
+  const nuevaTabla = tarifario.filter((procedimiento) =>
+    `${procedimiento.descripcion.toLowerCase()} ${procedimiento.codigoCpms.toLowerCase()}`.includes(
+      inputProcedimiento.value.toLowerCase()
+    )
+  );
+  renderTabla(nuevaTabla);
+});
 posicionarBuscador();
 
 $(window).scroll(function () {
