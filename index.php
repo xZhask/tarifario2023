@@ -55,6 +55,10 @@
                 </table>
             </div>
         </div>
+        <div class="thumb">
+            <img src="resources/img/icon_validador.svg" alt="validador" />
+            <p>Validar CPMS</p>
+        </div>
     </div>
 </body>
 <script language="javascript" src="resources/js/jquery-3.6.0.min.js"></script>
