@@ -422,7 +422,7 @@ label[for='mi-archivo'] {
     text-transform: uppercase;
     display: flex;
     width: 100%;
-    padding: 7px;
+    padding: 10px;
   }
   
   label[for='mi-archivo'] i {
@@ -430,10 +430,11 @@ label[for='mi-archivo'] {
   }
   form button{
     border: none;
-    padding: 0 10px;
+    padding: 0 25px;
     background-color: var(--light);
   }
   form button.active{
     background-color: var(--primary-color);
     color: var(--light);
+    cursor: pointer;
   }
