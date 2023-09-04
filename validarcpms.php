@@ -37,11 +37,9 @@ session_start();
         <div class="section">
             <div class="container">
                 <form action="" method="post" name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">
-                    <div>
-                        <label>Seleccionar Archivo Excel</label>
-                        <input type="file" name="mi-archivo" id="mi-archivo" accept=".xls,.xlsx">
-                        <button type="submit" id="submit" name="import" class="btn-submit">Import</button>
-                    </div>
+                    <label for="mi-archivo" id="lbl-miarchivo">Seleccionar Archivo Excel</label>
+                    <input type="file" name="mi-archivo" id="mi-archivo" accept=".xls,.xlsx" required>
+                    <button type="submit" id="submit" name="import" class="btn-submit">Validar</button>
                 </form>
             </div>
             <div class="container cont-table">

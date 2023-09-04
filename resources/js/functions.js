@@ -15,7 +15,23 @@ if (document.querySelector("#ipress-validador")) {
   document.querySelector("#ipress-validador").value =
     localStorage.getItem("ipress");
 }
-
+if (document.querySelector("#mi-archivo")) {
+  const myFile = document.querySelector("#mi-archivo");
+  const textoFile = document.querySelector("#lbl-miarchivo");
+  const btnValidar = document.querySelector("#submit");
+  myFile.addEventListener("change", () => {
+    filename = myFile.value.split("\\").pop();
+    textoFile.textContent = filename;
+    btnValidar.classList.add("active");
+  });
+}
+if (document.querySelector("#submit")) {
+  const myFile = document.querySelector("#mi-archivo");
+  const btnValidar = document.querySelector("#submit");
+  btnValidar.addEventListener("click", () => {
+    if (myFile.value == "") alert("Seleccione archivo");
+  });
+}
 const inputIpress = document.querySelector("#ipress");
 const inputProcedimiento = document.querySelector("#procedimiento");
 const tbTarifario = document.querySelector("#tbCpms");
