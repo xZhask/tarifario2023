@@ -55,7 +55,7 @@
                 </table>
             </div>
         </div>
-        <div class="thumb">
+        <div class="thumb" id="lnk-validar">
             <img src="resources/img/icon_validador.svg" alt="validador" />
             <p>Validar CPMS</p>
         </div>

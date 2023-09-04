@@ -8,8 +8,8 @@ try {
     $manejador = 'mysql';
     $servidor = 'localhost';
     $usuario = 'root';
-    $pass = 'mysql';
-    $db = 'dbestdirsapol';
+    $pass = '';
+    $db = 'tarifario2023';
     //$usuario = 'odindeveloper_josue';
     //$pass = 'b(=-.[52yyfy';
     //$db = 'odindeveloper_dbcpms';

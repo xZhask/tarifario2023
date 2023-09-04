@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,9 +27,7 @@
     <div class="wrapper">
         <header>
             <div class="cont-inputsearch">
-                <input type="hidden" name="nivelipress" id="nivelipress">
-                <input type="text" id="ipress" name="ipress" placeholder="Ingresar Ipress ...">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="ipress-validador" value="<?php echo $_SESSION['active']; ?>" readonly>
             </div>
             <div class="cont-info-tarifario">
                 <h2>Tarifario Actual: 05-2023</h2>
@@ -34,19 +35,36 @@
             </div>
         </header>
         <div class="section">
-            <div class="cont-thumbs">
-                <div class="thumb">
-                    <img src="resources/img/icon_tarifario.svg" alt="tarifario" />
-                    <p>Tarifario</p>
-                </div>
-                <div class="thumb">
-                    <img src="resources/img/icon_validador.svg" alt="validador" />
-                    <p>Validar CPMS</p>
-                </div>
+            <div class="container">
+                <form action="" method="post" name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">
+                    <div>
+                        <label>Seleccionar Archivo Excel</label>
+                        <input type="file" name="mi-archivo" id="mi-archivo" accept=".xls,.xlsx">
+                        <button type="submit" id="submit" name="import" class="btn-submit">Import</button>
+                    </div>
+                </form>
+            </div>
+            <div class="container cont-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código CPMS</th>
+                            <th>Descripción CPMS</th>
+                            <th>Id Atención</th>
+                            <th>Responsable</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cont-result"></tbody>
+                </table>
             </div>
         </div>
     </div>
 </body>
+<script>
+    //ipress = 
+
+    //ipress.text('miau')
+</script>
 <script language="javascript" src="resources/js/jquery-3.6.0.min.js"></script>
 <script language="javascript" src="resources/js/jquery-ui-1.13.1/jquery-ui.min.js"></script>
 <script language="javascript" src="resources/js/functions.js"></script>

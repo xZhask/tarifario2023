@@ -1,46 +1,66 @@
-const inputIpress = document.querySelector('#ipress')
-const inputProcedimiento = document.querySelector('#procedimiento')
-const tbTarifario = document.querySelector('#tbCpms')
-const contLoader = document.querySelector('.preloader')
+/* Validar */
+if (document.querySelector("#frmExcelImport")) {
+  const form = document.querySelector("#frmExcelImport");
+  const contTable = document.querySelector("#cont-result");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    let frm = document.querySelector("#frmExcelImport");
+    let datos = new FormData(frm);
+    datos.append("accion", "VALIDAR");
+    let respuesta = await postData(datos);
+    contTable.innerHTML = respuesta.data;
+  });
+}
+if (document.querySelector("#ipress-validador")) {
+  document.querySelector("#ipress-validador").value =
+    localStorage.getItem("ipress");
+}
 
-let nivelIpress
-let tarifario = []
+const inputIpress = document.querySelector("#ipress");
+const inputProcedimiento = document.querySelector("#procedimiento");
+const tbTarifario = document.querySelector("#tbCpms");
+const contLoader = document.querySelector(".preloader");
+const lnkValidar = document.querySelector("#lnk-validar");
 
-window.addEventListener('load', async () => {
-  contLoader.style.opacity = 0
-  contLoader.style.visibility = 'hidden'
+let nivelIpress;
+let tarifario = [];
 
-  const datos = new FormData()
-  datos.append('accion', 'LISTAR_UNIDADES')
-  const cargarUnidades = await postData(datos)
-  const unidadesList = cargarUnidades.map((unidad) => unidad.nombreIpress)
-  CargarAutocompletado(unidadesList, cargarUnidades)
-})
+window.addEventListener("load", async () => {
+  contLoader.style.opacity = 0;
+  contLoader.style.visibility = "hidden";
+
+  const datos = new FormData();
+  datos.append("accion", "LISTAR_UNIDADES");
+  const cargarUnidades = await postData(datos);
+  const unidadesList = cargarUnidades.map((unidad) => unidad.nombreIpress);
+  CargarAutocompletado(unidadesList, cargarUnidades);
+});
 
 async function postData(data) {
-  const response = await fetch('App/controller/controller.php', {
-    method: 'POST',
+  const response = await fetch("App/controller/controller.php", {
+    method: "POST",
     body: data,
-  }).then((res) => res.json())
-  return await response
+  }).then((res) => res.json());
+  return await response;
 }
 function CargarAutocompletado(list, unidades) {
-  $('#ipress').autocomplete({
+  $("#ipress").autocomplete({
     source: list,
     select: (e, item) => {
-      let unidad = item.item.value
-      let position = list.indexOf(unidad)
-      nivelIpress = unidades[position].nivel
-      cargarTarifario(nivelIpress)
+      let unidad = item.item.value;
+      let position = list.indexOf(unidad);
+      nivelIpress = unidades[position].nivel;
+      cargarTarifario(nivelIpress);
+      localStorage.setItem("ipress", unidad);
     },
-  })
+  });
 }
 async function cargarTarifario(nivel) {
-  let datos = new FormData()
-  datos.append('accion', 'CARGAR_TARIFARIO')
-  datos.append('nivelIpress', nivel)
-  tarifario = await postData(datos)
-  renderTabla(tarifario)
+  let datos = new FormData();
+  datos.append("accion", "CARGAR_TARIFARIO");
+  datos.append("nivelIpress", nivel);
+  tarifario = await postData(datos);
+  renderTabla(tarifario);
 }
 
 const crearFilasTabla = (tarifario) =>
@@ -49,40 +69,44 @@ const crearFilasTabla = (tarifario) =>
       (procedimiento, indice) =>
         `<tr><td>${indice + 1}</td><td>${procedimiento.codigoCpms}</td><td>${
           procedimiento.descripcion
-        }</td><td>S/.${procedimiento.precio}</td></tr>`,
+        }</td><td>S/.${procedimiento.precio}</td></tr>`
     )
-    .join('')
+    .join("");
 
 function renderTabla(tarifario) {
-  const filasString = crearFilasTabla(tarifario)
-  tbTarifario.innerHTML = filasString
-  $('.bg-dark').css('display', 'none')
-  $('#btnExcel').prop(
-    'href',
-    `resources/libraries/Excel/tarifario.php?nvl=${nivelIpress}`,
-  )
+  const filasString = crearFilasTabla(tarifario);
+  tbTarifario.innerHTML = filasString;
+  $(".bg-dark").css("display", "none");
+  $("#btnExcel").prop(
+    "href",
+    `resources/libraries/Excel/tarifario.php?nvl=${nivelIpress}`
+  );
 }
-inputProcedimiento.addEventListener('keyup', (e) => {
+inputProcedimiento.addEventListener("keyup", (e) => {
   const nuevaTabla = tarifario.filter((procedimiento) =>
     `${procedimiento.descripcion.toLowerCase()} ${procedimiento.codigoCpms.toLowerCase()}`.includes(
-      inputProcedimiento.value.toLowerCase(),
-    ),
-  )
-  renderTabla(nuevaTabla)
-})
-posicionarBuscador()
+      inputProcedimiento.value.toLowerCase()
+    )
+  );
+  renderTabla(nuevaTabla);
+});
+posicionarBuscador();
 
 $(window).scroll(function () {
-  posicionarBuscador()
-})
+  posicionarBuscador();
+});
 
 function posicionarBuscador() {
-  var alturaHeader = $('header').outerHeight(true)
+  var alturaHeader = $("header").outerHeight(true);
   if ($(window).scrollTop() >= alturaHeader) {
-    $('.cont-search').addClass('fixed')
-    $('.cont-table').css('margin-top', '135px')
+    $(".cont-search").addClass("fixed");
+    $(".cont-table").css("margin-top", "135px");
   } else {
-    $('.cont-search').removeClass('fixed')
-    $('.cont-table').css('margin-top', '0')
+    $(".cont-search").removeClass("fixed");
+    $(".cont-table").css("margin-top", "0");
   }
 }
+lnkValidar.addEventListener("click", () => {
+  window.open("validarcpms.php", "_blank");
+  window.focus();
+});
