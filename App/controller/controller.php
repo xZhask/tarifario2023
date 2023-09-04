@@ -21,29 +21,6 @@ function controller($accion)
             $tarifario = $objProcedimiento->CargarTarifario($nvl);
             $tarifario = $tarifario->fetchAll(PDO::FETCH_OBJ);
             echo json_encode($tarifario);
-            //echo (armarTabla($procedimientos));
-            break;
-        case 'FILTRAR_PROCEDIMIENTOS':
-            $nvl = $_POST['nvlIpress'];
-            $filtro = $_POST['filtro'];
-            $procedimientos = $objProcedimiento->FiltrarProcedimiento($filtro, $nvl);
-            echo (armarTabla($procedimientos));
             break;
     }
-}
-function armarTabla($listado)
-{
-    $procedimientos = $listado->fetchAll(PDO::FETCH_OBJ);
-    $tabla = '';
-    $id = 1;
-    foreach ($procedimientos as $procedimiento) {
-        $tabla .= '<tr>';
-        $tabla .= '<td>' . $id . '</td>';
-        $tabla .= '<td>' . $procedimiento->codigoCpms . '</td>';
-        $tabla .= '<td>' . $procedimiento->descripcion . '</td>';
-        $tabla .= '<td>' . $procedimiento->precio . '</td>';
-        $tabla .= '</tr>';
-        $id++;
-    }
-    return $tabla;
 }
