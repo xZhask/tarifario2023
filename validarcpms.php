@@ -15,7 +15,7 @@ if (!isset($_SESSION['active'])) {
     <link rel="stylesheet" href="resources/js/jquery-ui-1.13.1/jquery-ui.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="icon" type="image/png" href="resources/img/calendarioPrecios.png" />
-    <title>Tarifario 05-2023 | CPMS</title>
+    <title>Validar CPMS | Dirsapol</title>
 </head>
 
 <body>
