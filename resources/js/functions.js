@@ -23,7 +23,6 @@ if (document.querySelector("#btn-reset")) {
   const textoFile = document.querySelector("#lbl-miarchivo");
   const btnValidar = document.querySelector("#submit");
   btnReset.addEventListener("click", async () => {
-
     inputFile.value = ''
     textoFile.textContent = 'Click para seleccionar Archivo Excel'
     contTable.innerHTML = '';

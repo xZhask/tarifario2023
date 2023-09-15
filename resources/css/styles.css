@@ -72,9 +72,12 @@ header input {
     border: 1px solid var(--primary-color);
 }
 
-.cont-table table th {
+.cont-table table thead {
     background-color: var(--primary-color);
     color: var(--light);
+}
+
+.cont-table table th {
     padding: .25em 0;
 }
 
@@ -462,11 +465,11 @@ form button.active {
     box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
     background-color: var(--red-dark);
     color: var(--light);
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
+    border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -ms-border-radius: 5px 0 0 5px;
+    -o-border-radius: 5px 0 0 5px;
     transition: all ease .4s;
     -webkit-transition: all ease .4s;
     -moz-transition: all ease .4s;
@@ -490,6 +493,22 @@ form button.active {
     opacity: 0;
 }
 
+th.td-red {
+    background-color: var(--red);
+}
+
+.btn-options {
+    display: flex;
+}
+
+.btn-export {
+    color: var(--secondary-color);
+    border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    -ms-border-radius: 0 5px 5px 0;
+    -o-border-radius: 0 5px 5px 0;
+}
 
 /* LOADING VALIDATE*/
 .custom-loader {

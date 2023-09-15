@@ -44,7 +44,11 @@ if (!isset($_SESSION['active'])) {
                     <input type="file" name="mi-archivo" id="mi-archivo" accept=".xls,.xlsx" required>
                     <button type="submit" id="submit" name="import" class="button">Validar</button>
                 </form>
-                <button id="btn-reset" class="button btn-reset"> Limpiar</button>
+                <div class="btn-options">
+                    <button id="btn-reset" class="button btn-reset"> Limpiar</button>
+                    <button id="btn-export" class="button btn-export"> Exportar <i class="fa-solid fa-file-excel"></i></button>
+                </div>
+
             </div>
             <div class="cont-table">
                 <table>
@@ -52,7 +56,7 @@ if (!isset($_SESSION['active'])) {
                         <tr>
                             <th>Código CPMS</th>
                             <th>Descripción CPMS</th>
-                            <th>Id Atención</th>
+                            <th class="td-red">Id Atención</th>
                             <th>Responsable</th>
                         </tr>
                     </thead>
