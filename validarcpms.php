@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['active'])) {
+    header('location: index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,12 +40,13 @@ session_start();
         <div class="section">
             <div class="container">
                 <form action="" method="post" name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">
-                    <label for="mi-archivo" id="lbl-miarchivo">Seleccionar Archivo Excel</label>
+                    <label for="mi-archivo" id="lbl-miarchivo">Click para seleccionar Archivo Excel</label>
                     <input type="file" name="mi-archivo" id="mi-archivo" accept=".xls,.xlsx" required>
-                    <button type="submit" id="submit" name="import" class="btn-submit">Validar</button>
+                    <button type="submit" id="submit" name="import" class="button">Validar</button>
                 </form>
+                <button id="btn-reset" class="button btn-reset"> Limpiar</button>
             </div>
-            <div class="container cont-table">
+            <div class="cont-table">
                 <table>
                     <thead>
                         <tr>
@@ -52,16 +56,19 @@ session_start();
                             <th>Responsable</th>
                         </tr>
                     </thead>
-                    <tbody id="cont-result"></tbody>
+                    <tbody id="cont-result">
+                    </tbody>
                 </table>
             </div>
+            <div id="load-validate" class="cont-loading-validate">
+                <div class="custom-loader"></div>
+                <p>Validando Archivo</p>
+            </div>
+
         </div>
     </div>
 </body>
 <script>
-    //ipress = 
-
-    //ipress.text('miau')
 </script>
 <script language="javascript" src="resources/js/jquery-3.6.0.min.js"></script>
 <script language="javascript" src="resources/js/jquery-ui-1.13.1/jquery-ui.min.js"></script>

@@ -73,7 +73,6 @@ function controller($accion)
             if ($cont === 0) $tabla = '<tr><td colspan="4">NO SE ENCONTRARON OBSERVACIONES</td></tr>';
             $respuesta = ['result' => $cont, 'data' => $tabla];
             echo json_encode($respuesta);
-            //echo $archivo;
             unlink($ruta);
             break;
     }
