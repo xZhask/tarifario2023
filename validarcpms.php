@@ -45,8 +45,9 @@ if (!isset($_SESSION['active'])) {
                     <button type="submit" id="submit" name="import" class="button">Validar</button>
                 </form>
                 <div class="btn-options">
-                    <button id="btn-reset" class="button btn-reset"> Limpiar</button>
-                    <button id="btn-export" class="button btn-export"> Exportar <i class="fa-solid fa-file-excel"></i></button>
+                    <a id="btn-reset" class="button btn-reset"> Limpiar</a>
+                    <a id="btn-export" class="button btn-export"><i class="fa-solid fa-file-excel"></i> Exportar</a>
+
                 </div>
 
             </div>

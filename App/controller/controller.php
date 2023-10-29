@@ -46,32 +46,46 @@ function controller($accion)
             $hojaActual = $documento->getSheet(0);
             session_start();
             $tarifario = $_SESSION['tarifario'];
+            $_SESSION['lastValidation'] = [];
 
-            $ultimaFila = $hojaActual->getHighestRow();
-            $tabla = '';
-            $cont = 0;
-            for ($i = 10; $i <= $ultimaFila; $i++) {
-                $coordenadas = "B" . $i;
-                $celda = $hojaActual->getCell($coordenadas)->getValue();
-                if (strlen($celda) < 9) {
-                    $celdaTipo = $hojaActual->getCell("K" . $i)->getValue();
-                    if (!in_array($celda, $tarifario))
-                        if ($celdaTipo !== 'NANDA') {
-                            $cpms = $hojaActual->getCell("C" . $i)->getValue();
-                            $idAtencion = $hojaActual->getCell("N" . $i)->getValue();
-                            $responsable = $hojaActual->getCell("E" . $i)->getValue();
-                            $tabla .= '<tr>';
-                            $tabla .= '<td>' . $celda . '</td>';
-                            $tabla .= '<td>' . $cpms . '</td>';
-                            $tabla .= '<td>' . $idAtencion . '</td>';
-                            $tabla .= '<td>' . $responsable . '</td>';
-                            $tabla .= '</tr>';
-                            $cont = 1;
-                        }
+            $condition = $hojaActual->getCell("B8")->getValue();
+            if ($condition === 'CODIGO CPT') {
+                $ultimaFila = $hojaActual->getHighestRow();
+                $tabla = '';
+                $cont = 0;
+                for ($i = 10; $i <= $ultimaFila; $i++) {
+                    $coordenadas = "B" . $i;
+                    $celda = $hojaActual->getCell($coordenadas)->getValue();
+                    if (strlen($celda) < 9) {
+                        $celdaTipo = $hojaActual->getCell("K" . $i)->getValue();
+                        if (!in_array($celda, $tarifario))
+                            if ($celdaTipo !== 'NANDA') {
+                                $cpms = $hojaActual->getCell("C" . $i)->getValue();
+                                $idAtencion = $hojaActual->getCell("N" . $i)->getValue();
+                                $responsable = $hojaActual->getCell("E" . $i)->getValue();
+                                #armar array
+                                $fila = ['idCpms' => $celda, 'cpms' => $cpms, 'idAtencion' => $idAtencion, 'responsable' => $responsable];
+                                $_SESSION['lastValidation'][] = $fila;
+                                $tabla .= '<tr>';
+                                $tabla .= '<td>' . $celda . '</td>';
+                                $tabla .= '<td>' . $cpms . '</td>';
+                                $tabla .= '<td>' . $idAtencion . '</td>';
+                                $tabla .= '<td>' . $responsable . '</td>';
+                                $tabla .= '</tr>';
+                                $cont = 1;
+                            }
+                    }
                 }
+                if ($cont === 0) $tabla = '<tr><td colspan="4">NO SE ENCONTRARON OBSERVACIONES</td></tr>';
+                $response = $tabla;
+            } else {
+                $cont = -1;
+                $response = 'Archivo inválido';
             }
-            if ($cont === 0) $tabla = '<tr><td colspan="4">NO SE ENCONTRARON OBSERVACIONES</td></tr>';
-            $respuesta = ['result' => $cont, 'data' => $tabla];
+            #CODIGO CPT
+
+
+            $respuesta = ['result' => $cont, 'data' => $response];
             echo json_encode($respuesta);
             unlink($ruta);
             break;

@@ -508,6 +508,7 @@ th.td-red {
     -moz-border-radius: 0 5px 5px 0;
     -ms-border-radius: 0 5px 5px 0;
     -o-border-radius: 0 5px 5px 0;
+    gap: 5px;
 }
 
 /* LOADING VALIDATE*/

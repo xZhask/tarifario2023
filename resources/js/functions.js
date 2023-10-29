@@ -2,7 +2,7 @@
 if (document.querySelector("#frmExcelImport")) {
   const form = document.querySelector("#frmExcelImport");
   const contTable = document.querySelector("#cont-result");
-  const loadValidate = document.querySelector('#load-validate');
+  const loadValidate = document.querySelector("#load-validate");
   form.addEventListener("submit", async (e) => {
     loadValidate.style.opacity = 1;
     loadValidate.style.visibility = "visible";
@@ -13,20 +13,31 @@ if (document.querySelector("#frmExcelImport")) {
     let respuesta = await postData(datos);
     loadValidate.style.opacity = 0;
     loadValidate.style.visibility = "hidden";
-    contTable.innerHTML = respuesta.data;
+    if (respuesta.result > -1) {
+      contTable.innerHTML = respuesta.data;
+      if (respuesta.result == 1)
+        $("#btn-export").prop(
+          "href",
+          `resources/libraries/Excel/validation.php`
+        );
+    } else {
+      alert(respuesta.data);
+    }
   });
 }
 if (document.querySelector("#btn-reset")) {
   const btnReset = document.querySelector("#btn-reset");
+  const btnExport = document.querySelector("#btn-export");
   const inputFile = document.querySelector("#mi-archivo");
   const contTable = document.querySelector("#cont-result");
   const textoFile = document.querySelector("#lbl-miarchivo");
   const btnValidar = document.querySelector("#submit");
   btnReset.addEventListener("click", async () => {
-    inputFile.value = ''
-    textoFile.textContent = 'Click para seleccionar Archivo Excel'
-    contTable.innerHTML = '';
+    inputFile.value = "";
+    textoFile.textContent = "Click para seleccionar Archivo Excel";
+    contTable.innerHTML = "";
     btnValidar.classList.remove("active");
+    btnExport.removeAttribute("href");
   });
 }
 if (document.querySelector("#ipress-validador")) {
@@ -101,7 +112,8 @@ const crearFilasTabla = (tarifario) =>
   tarifario
     .map(
       (procedimiento, indice) =>
-        `<tr><td>${indice + 1}</td><td>${procedimiento.codigoCpms}</td><td>${procedimiento.descripcion
+        `<tr><td>${indice + 1}</td><td>${procedimiento.codigoCpms}</td><td>${
+          procedimiento.descripcion
         }</td><td>S/.${procedimiento.precio}</td></tr>`
     )
     .join("");
