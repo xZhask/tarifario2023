@@ -412,6 +412,7 @@ input {
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     overflow: hidden;
+    position: relative;
 }
 
 form input[type='file'] {
@@ -548,4 +549,30 @@ th.td-red {
         -ms-transform: rotate(.5turn);
         -o-transform: rotate(.5turn);
     }
+}
+
+.info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #c0392b;
+
+    cursor: pointer;
+}
+
+.icon-info {
+    font-size: 1.3em;
+}
+
+.img-info {
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    left: -200px;
+    top: 30px;
+    display: none;
+}
+
+.info:hover .img-info {
+    display: block;
 }

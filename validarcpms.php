@@ -43,8 +43,14 @@ if (!isset($_SESSION['active'])) {
                     <label for="mi-archivo" id="lbl-miarchivo">Click para seleccionar Archivo Excel</label>
                     <input type="file" name="mi-archivo" id="mi-archivo" accept=".xls,.xlsx" required>
                     <button type="submit" id="submit" name="import" class="button">Validar</button>
+
                 </form>
+                <div class="info">
+                    <i class="fa-solid fa-circle-info icon-info"></i>
+                    <figure><img class="img-info" src="resources/img/pasosvalidar.png" alt=""></figure>
+                </div>
                 <div class="btn-options">
+
                     <a id="btn-reset" class="button btn-reset"> Limpiar</a>
                     <a id="btn-export" class="button btn-export"><i class="fa-solid fa-file-excel"></i> Exportar</a>
 
