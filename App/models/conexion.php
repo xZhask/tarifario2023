@@ -1,10 +1,10 @@
 <?php
 try {
-    /* $manejador = 'pgsql';
-    $servidor = 'localhost';
-    $usuario = 'postgres';
-    $pass = 'root';
-    $db = 'dbcpms'; */
+    /*$manejador = 'mysql'; //'pgsql';
+$servidor = 'localhost';
+$dbname = 'odindeve_dbestdirsapol;charset=utf8';
+$usuario = 'odindeve_josue'; //postgres
+$pass = 'hcYz;tpXNb%R'; //root */
     $manejador = 'mysql';
     $servidor = 'localhost';
     $usuario = 'root';

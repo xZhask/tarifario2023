@@ -30,7 +30,7 @@ if (!isset($_SESSION['active'])) {
     <div class="wrapper">
         <header>
             <div class="cont-inputsearch">
-                <input type="text" id="ipress-validador" value="<?php echo $_SESSION['active']; ?>" readonly>
+                <input type="text" id="ipress-validador" value="<? echo $_SESSION['active']; ?>" readonly>
             </div>
             <div class="cont-info-tarifario">
                 <h2>Tarifario Actual: 05-2023</h2>
@@ -43,7 +43,6 @@ if (!isset($_SESSION['active'])) {
                     <label for="mi-archivo" id="lbl-miarchivo">Click para seleccionar Archivo Excel</label>
                     <input type="file" name="mi-archivo" id="mi-archivo" accept=".xls,.xlsx" required>
                     <button type="submit" id="submit" name="import" class="button">Validar</button>
-
                 </form>
                 <div class="info">
                     <i class="fa-solid fa-circle-info icon-info"></i>
