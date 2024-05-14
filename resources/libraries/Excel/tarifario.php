@@ -12,21 +12,23 @@ require_once '../../../App/models/ClsCpt.php';
 $objProcedimiento = new ClsProcedimiento();
 
 $nvl = $_GET['nvl'];
+$tittle='';
+$nameFile='';
 
-$tarifario = $objProcedimiento->CargarTarifario($nvl);
+if($nvl<=3)
+    {
+        $tarifario = $objProcedimiento->CargarTarifario($nvl);
+        $tittle = 'TARIFARIO PARA IPRESS DE NIVEL '.$nvl;
+        $nameFile= 'TarifarioIpressNvl '.$nvl;
+    }
+else
+    {
+        $tarifario = $objProcedimiento->CargarTarifarioDiferenciado($nvl);
+        $tittle= ($nvl==4)?'TARIFARIO DIFERENCIADO PARA LA CLÍNICA ODONTOLÓGICA PNP ANGAMOS':'TARIFARIO DIFERENCIADO PARA EL POLICLINICO PNP CHICLAYO';
+        $nameFile= ($nvl==4)?'TarifarioIpressAngamos':'TarifarioIpressChiclayo';
+    }   
+    
 $tarifario = $tarifario->fetchAll(PDO::FETCH_OBJ);
-/* $id = 1;
-foreach ($tarifario as $procedimiento) {
-    echo $id;
-    echo ' - ';
-    echo $procedimiento->codigoCpms;
-    echo ' - ';
-    echo $procedimiento->descripcion;
-    echo ' - ';
-    echo $procedimiento->precio;
-    $id++;
-    echo '<br>';
-} */
 
 $estiloHeader = [
     'font' => [
@@ -76,7 +78,7 @@ $sheet->getColumnDimension('A')->setWidth(10);
 $spreadsheet->getActiveSheet()->getStyle('A')->applyFromArray($estiloCentro);
 $spreadsheet->getActiveSheet()->getStyle('B')->applyFromArray($estiloCentro);
 $spreadsheet->getActiveSheet()->getStyle('D')->applyFromArray($estiloCentro);
-$sheet->setCellValue('A1', 'TARIFARIO PARA IPRESS DE NIVEL ' . $nvl);
+$sheet->setCellValue('A1', $tittle);
 $spreadsheet->getActiveSheet()->getRowDimension('2')->setRowHeight(20);
 $sheet->setCellValue('A2', '#');
 $sheet->getColumnDimension('B')->setWidth(20);
@@ -88,8 +90,6 @@ $sheet->setCellValue('D2', 'PRECIO');
 
 $filaExcel = 3;
 
-$tarifario = $objProcedimiento->CargarTarifario($nvl);
-$tarifario = $tarifario->fetchAll(PDO::FETCH_OBJ);
 $id = 1;
 foreach ($tarifario as $procedimiento) {
     $sheet->setCellValue('A' . $filaExcel, $id);
@@ -103,7 +103,7 @@ $filaExcel--;
 $spreadsheet->getActiveSheet()->getStyle('A3:D' . $filaExcel)->applyFromArray($estiloBody);
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="Tarifario.xlsx"');
+header('Content-Disposition: attachment;filename="'.$nameFile.'.xlsx"');
 header('Cache-Control: max-age=0');
 
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');

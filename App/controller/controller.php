@@ -22,7 +22,10 @@ function controller($accion)
             break;
         case 'CARGAR_TARIFARIO':
             $nvl = $_POST['nivelIpress'];
-            $tarifario = $objProcedimiento->CargarTarifario($nvl);
+            if($nvl<=3)
+                $tarifario = $objProcedimiento->CargarTarifario($nvl);
+            else
+                $tarifario = $objProcedimiento->CargarTarifarioDiferenciado($nvl);
             $tarifario = $tarifario->fetchAll(PDO::FETCH_OBJ);
             session_start();
             $_SESSION['active'] = true;

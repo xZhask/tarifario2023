@@ -14,4 +14,15 @@ class ClsProcedimiento
         $pre->execute($parametros);
         return $pre;
     }
+    function CargarTarifarioDiferenciado($nvl)
+    {
+        $sql = 'SELECT * FROM tarifario WHERE nivelUsoDiferente IN (:nivel,6)';
+        global $cnx;
+        $parametros = [
+            ':nivel' => $nvl
+        ];
+        $pre = $cnx->prepare($sql);
+        $pre->execute($parametros);
+        return $pre;
+    }
 }
